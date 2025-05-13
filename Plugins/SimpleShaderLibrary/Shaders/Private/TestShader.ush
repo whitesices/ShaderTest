@@ -147,3 +147,32 @@ float3 a3 = (float3)a4;
 float x1 = 11.234f;
 int i1 = x1;
 return i1;
+
+/*
+discard :不满足相应条件可以把像素丢弃掉
+int cc = 1;
+switch(cc)
+{
+ case 1:
+ {
+    discard;
+    break;
+ } 
+ case 2:
+ {
+    break;
+ }
+ case 3:
+ {
+    break;
+ }
+ default:
+ {
+    break;
+ }
+}
+
+return 2;//丢弃就不会返回2，因为上面的switch case 1 执行了 discard
+
+
+*/
