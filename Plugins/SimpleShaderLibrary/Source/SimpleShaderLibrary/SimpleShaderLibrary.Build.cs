@@ -36,8 +36,15 @@ public class SimpleShaderLibrary : ModuleRules
 			{
 				"CoreUObject",
 				"Engine",
-				"Slate",
-				"SlateCore",
+				//引入渲染模块依赖
+				"Renderer",
+				"RenderCore",
+				//ue自带的跨平台接口
+				"RHI",
+				//因为用到了插件管理因此要引入该依赖
+				"Projects"
+				//"Slate",
+				//"SlateCore",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

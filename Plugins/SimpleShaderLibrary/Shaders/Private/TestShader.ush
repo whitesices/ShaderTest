@@ -1,0 +1,149 @@
+// bool b = (A <= B);
+// //声明一个临时变量
+// float3 Tmp = float3(0,0,0);
+
+// if(b)
+// {
+//     Tmp = float3(1,0,0);
+// }
+// else
+// {
+//     Tmp = float3(0,1,0);
+// }
+
+// return Tmp;
+
+// int C = A + B;
+
+// return C;
+//int 32 四个字节 half为16 两个字节 half的范围 -60000 -》 60000 ,精度要求不高的环境下用half
+// return half(3);
+// return double(5.0);
+
+//uint : 取值范围 2^31 - 1 , 0 -> 4294967295
+//int : int 占用4字节 ， 数据范围 -2147483648 -》 2147483647 [-2^31 -> 2^31-1]
+
+// vector<float,4> V4;
+// V4.xyzw = 0.f;
+// V4.y = 1.f;
+
+// vector<float,3> V3;
+// V3.xyz = 1.f;
+// V3.y = 0.f;
+// return V3;
+//用float 来表示向量
+// return float3(1.f , 1.f ,0.f);
+
+//vector向量
+// vector helloVH;
+// helloVH.xyzw = 0.f;
+// helloVH.z = 1.f;
+// return helloVH;
+//访问方式 V_float5.rgba or V_float5.xyzw or 数组的形式例如 V_float5[0] or V_float5.rr 表示为xy
+// float3 V_float1 = { 0.0 , 0.0 , 0.0 };
+
+// float4 V_float5 = float4( V_float1 , 0.f );
+// V_float5.yz = 1.f;
+// return V_float5[0];
+
+//矩阵
+// m00 m01 m02 0 r 
+// m10 m11 m12 0 f
+// m20 m21 m22 0 u
+// x   y   z   1
+//点乘表示角度，叉乘求新的向量
+
+//矩阵的声明方式
+// float1x1 a;
+// float2x2 b;
+// float3x3 c;
+// float4x4 d;
+// float3x4 e;
+// matrix<float,2,2> M2x2;
+// matrix<float,2,3> M2x3;
+// matrix<float,3,3> M3x3;
+// matrix<float,4,4> M4x4;
+//没有参数的默认为4X4矩阵
+// matrix M4x4_2;
+
+
+//矩阵初始化赋值
+// float2x2 M2x2_2 = 
+// {
+//     1.f , 0.f , 
+//     0.f , 1.f 
+// };
+
+// float3 a = float3( 0.f , 0.f , 0.f );
+// float3 b = float3( 0.f , 0.f , 0.f );
+// float3 c = float3( 0.f , 0.f , 0.f);
+
+// float3x3 MHello = float3x3(a,b,c);
+// vector ABCD = {0.0,0.0,0.0,0.0};
+
+// matrix MHello1 = float4x4(ABCD,ABCD,ABCD,ABCD);
+
+//视频示例
+/*
+float aa = MHello1.m00;
+float aaa1 = MHello1._12;
+float aaa2 = MHello1[0][1];
+float aaa3 = MHello1._11_12;
+MHello1._21_12 = MHello1._11_12;
+
+//避免出现转置
+row_major matrix M123;
+
+*/
+
+// float a1 = MHello1._m00;
+// float a1 = MHello1._12;
+// MHello1._21_12 = MHello1._11_12;
+// // float a1 = MHello1[1][1];
+// return a1;
+
+//静态关键字，及无法修改
+//关键字 用于指定变量的链接性为内部链接，这意味着该变量仅在声明他的编译单元内可见
+// static float3 g_StaticColor = float3( 1.0 , 0.0 , 0.0 );//红色
+// return g_StaticColor;
+
+//const 与C++的用法是一样的
+// const float3 aa123 = float3( 1.0 , 0.0 , 0.0 );
+
+// return aa123;
+
+//定义别名
+// typedef const float3 Tire;
+// Tire t= float3(1.f , 1.f ,0.f);
+// return t;
+
+// vector cc[10];
+// float4 cc1[10];
+// //4x4 matric
+// float MMMcc[4][4];
+
+//结构体
+struct FTestStruct
+{
+    float a;//4个字节
+    float2 b;//8个字节
+    float4x4 C;//16*4个字节
+};
+
+FTestStruct t ;
+t.a = 1.f;
+// return t.a;
+
+// float4 mma = float4( 1 , 0 , 0 , 0 );
+// //进行强制转换
+// float m1 = (float) mma;
+// float a1 = 12.f;
+// float4 a4 = (float4)a1;
+float4 a4 = float4(1.f,1.f,0.f,0.f);
+float3 a3 = (float3)a4;
+
+//不同类型强转类似C语言的强转
+//基本的数据类型 基本支持隐式转换
+float x1 = 11.234f;
+int i1 = x1;
+return i1;
