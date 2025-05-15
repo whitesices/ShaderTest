@@ -123,15 +123,15 @@ row_major matrix M123;
 // float MMMcc[4][4];
 
 //结构体
-struct FTestStruct
-{
-    float a;//4个字节
-    float2 b;//8个字节
-    float4x4 C;//16*4个字节
-};
+// struct FTestStruct
+// {
+//     float a;//4个字节
+//     float2 b;//8个字节
+//     float4x4 C;//16*4个字节
+// };
 
-FTestStruct t ;
-t.a = 1.f;
+// FTestStruct t ;
+// t.a = 1.f;
 // return t.a;
 
 // float4 mma = float4( 1 , 0 , 0 , 0 );
@@ -139,14 +139,14 @@ t.a = 1.f;
 // float m1 = (float) mma;
 // float a1 = 12.f;
 // float4 a4 = (float4)a1;
-float4 a4 = float4(1.f,1.f,0.f,0.f);
-float3 a3 = (float3)a4;
+// float4 a4 = float4(1.f,1.f,0.f,0.f);
+// float3 a3 = (float3)a4;
 
 //不同类型强转类似C语言的强转
 //基本的数据类型 基本支持隐式转换
-float x1 = 11.234f;
-int i1 = x1;
-return i1;
+// float x1 = 11.234f;
+// int i1 = x1;
+// return i1;
 
 /*
 discard :不满足相应条件可以把像素丢弃掉
@@ -175,4 +175,265 @@ switch(cc)
 return 2;//丢弃就不会返回2，因为上面的switch case 1 执行了 discard
 
 
+*/
+
+//[branch] 跳转指令
+//[flatten]
+//[loop] 动态的，未知
+/*
+[loop]
+for( int i = 100 ; i <= 0 ; i-- )
+{
+   break;
+}
+
+
+
+*/
+//[unroll] 展开
+/*
+[unroll]
+for( int i = 0 ; i < 100 ; i++ )
+{
+   if( i == 3 )
+   {
+      break;
+   }
+}
+
+
+*/
+
+//abs求绝对值
+//cos 余弦值
+//acos 反余弦值
+// float3 Test3 = float3(-1.f , -1.f , -1.f);
+// float Test1 = abs( Test3 );
+// return Test1;
+
+// float InValue = cos( 3.1415926 / 4.0 );
+// // return InValue;
+
+// float aValue = acos( InValue );
+// float MyDegrees = degrees(aValue);
+// return MyDegrees;
+
+//all类似与与运算 一个为false即大半都为false 主要判断标准是0 和 1 
+// bool4 conditions = bool4( true , false , false , false );
+// bool bH1 = all(conditions);
+
+// any类似与或运算 即 1+1 = 1   1+0 = 1  0+0 = 0
+// bool bH1 = any(conditions);
+
+// return bH1;
+//ceil 向上取整
+// float v100 = 2.14f;
+// float result = ceil(v100);
+// float3 v100 = float3( 1.14f , 2.4f , 1.9f );
+// float3 result = ceil(v100);
+// return result;
+
+//floor向下取整
+// float3 v100 = float3( 1.14f , 2.4f ,1.9f );
+// float3 result = floor(v100);
+// return result;
+
+//clamp 将某个值限制在某个范围内
+// float hellof = 70.f;
+// float vhelo = clamp(hellof , 0.f , 1.f );
+// return vhelo;
+
+// float4 Test1 = float4( 10.f , 10.f , 10.f , 10.f );
+// float4 clampedColor = clamp( Test1 , float4(0.f , 0.f , 0.f , 0.f ) , float4(1.f ,1.f , 1.f ,1.f) );
+// return clampedColor.xyz;
+
+//clip剪切丢弃
+
+// float ClipTest = 10.f;
+// clip(ClipTest);
+
+//设置一个深度阈值
+// float depthThreshold = 0.5;
+//使用clip函数进行裁剪
+// clip( depth - depthThreshold );
+
+//双曲线
+//自定义函数来计算双曲余弦
+//相当于cosh的内部实现原理
+//float cosh( float x )
+// {
+       //其中e是自然对数的底数 （约为2.71828）
+//       ( exp(x) + exp(-x) ) / 2.0 ;
+// }
+
+// //读取纹理颜色
+// float4 texColor = tex2D(TextureSampler , texCoord);
+// //float4 texColor = float4( 1.0 , 1.0 , 0.0 , 0.0 );
+// //计算双曲余弦的值
+// float x = texCoord.x * 10.0;//根据纹理坐标调整
+// float coshValue = cosh(x);
+
+// //将纹理颜色与计算的‘cosh'值相乘，调整亮度
+// float4 adjustedColor = texColor * coshValue;
+
+// return adjustedColor;
+
+// return float3( 1.f , 0.f , 0.f );
+
+//countbits 计算比特位 统计二进制里一的数量
+
+// uint helloTestbit = 100;
+// float count = countbits(helloTestbit);
+/*
+   unit countBits( uint x)
+   {
+      uint count = 0;
+      while( x > 0 )
+      {
+         count += x & 1;//如果x的最低位是1 ，增加计数
+         x >>= 1;//右移一位
+      }
+      return count;
+   }
+*/
+// return count;
+
+//cross 求叉乘
+// float3 V1 = float3( 1 , 0 , 0 );
+// float3 V2 = float3( 0, 1 , 0 );
+// float3 V3 = cross( V1 , V2 );
+// return V3;
+
+//dot点乘 :各个分量相乘后在相加得到的值
+// float3 V1 = float3( 1.0 , 0.0 , 0.0 );
+// float3 V2 = float3( 0.0 , 1.0 , 0.0 );
+// // float3 V3 = dot( V1 , V2 );
+// float3 T1 = float3(-1,-1,1);
+
+// //通过乘积判断是否是正负，判断敌人方位
+// float a = dot( V1, T1 );
+
+// return a;
+
+// distance() 计算得到A点到B点的一个距离
+// float3 A1 = float3( 2,5,0);
+// float3 B1 = float3( 5,2,0);
+// float d = distance( A1 , B1 );
+// return d;
+//fmod 取余运算
+// float a1 = 10.f;
+// float b1 = 7.f;
+// return fmod(a1,b1);
+//fmod使用例子
+/*
+   //使用fmod使纹理坐标在[0,1]范围内循环
+   //float2 wrappedUV = fmod(uv,1.0);
+   //进行纹理采样
+   //float4 color = tex2D( TextureSampler , wrappedUV );
+   
+   //震荡效果
+   //使用fmod计算纹理坐标的周期性变化
+   float2 oscillation = fmod( uv * 10.0 , 1.0 );//将纹理坐标放大并周期性变化
+   //根据变化生成颜色
+   float4 color = float4( oscillation.x , oscillation.y , 0.0 ,1.0 );
+
+*/
+
+//frac 取小数部分
+// float v = frac( 5.4f );
+// return v;
+
+//length 取向量长度
+// float3 x = float3( 2.0 , 2.0 , 2.0 );
+// float lengthX = length(x);//lengthX = 5.0;
+// return lengthX;
+
+//step 通过与边际值比较 得到应该输出的是零还是1 前者大于后者输出0 ， 前者小于后者输出1
+// float edge = 0.5 ;
+// float x12 = 0.2;
+// float result = step(edge , x12);
+// return result;
+
+// float4 edge1 = float4( 0.5 , 0.5 , 0.5 , 0.5 );
+// float4 x11 = float4( 0.7 , 0.3 , 0.6 , 0.2 );
+// float4 result1 = step( edge1 , x11 );
+
+//step示例应用在阈值
+/*
+ //从纹理中采样颜色
+   //float4 color = tex2D(TextureSmapler , uv );
+ //使用step函数应用阈值效果
+ float threshold = 0.5;
+ float4 thresholdedColor = step( threshold , color );
+
+ //实现边缘检测
+ //从纹理中采样颜色
+ float4 color = tex2D(TextureSmapler , uv );
+ //计算图像的亮度
+ float luminance = dot( color.rgb , float3( 0.3 , 0.59 , 0.11 ) );
+
+ //使用step实现简单的边缘检测
+   float edgeThreshold = 0.5;
+   float edge = step( edgeThreshold , luminance);
+//返回边缘检测结果
+   return float4( edge , edge , edge , 1.0 );//将边缘检测结果显示为灰度
+
+ //
+*/
+
+// return result1;
+
+//trunc() 返回整个float的整数部分 , 类似floor的向下取整实现一个截断功能
+// float x1 = 3.1415926;
+// float result = trunc(x1);
+// return result;
+// float3 v3 = float3( 1.2 , 3.12 , 5.6);
+// float3 tV3 = trunc(v3);
+// return tV3;
+
+//trunc示例使坐标离散化
+/*使用trunc函数将纹理坐标离散化
+float2 gridCoord = trunc( uv * 10.0 ) / 10.0;
+//进行纹理采样
+float4 color = tex2D( TextureSampler , gridCoord );
+return color;
+
+*/
+
+//lerp() 插值 , 在x 和 y 之间按S的比例取值 ，常用来做平滑过渡
+// float x = 10.0 ;
+// float y = 20.0 ;
+// float s = 0.1;
+// float result = lerp( x , y , s );
+// return result;
+
+//ddx ddy 计算x 方向  y 方向的梯度
+/*
+ float value = ... ;//当前像素的值
+ float gradientX = ddx(value); //x方向的梯度
+ float gradientY = ddy(value); //y方向的梯度
+
+
+ float2 color = tex2D(TextureSampler , uv)
+
+ //当前纹理坐标进行过滤
+ float2 uv = ...;
+ float2 gradX = ddx(uv); //x方向的纹理坐标梯度
+ float2 gradY = ddy(uv); //y方向的纹理坐标梯度
+
+ //计算边缘强度，通过边缘强度获取灰度值
+ float4 color = tex2D(TextureSampler , uv);//从纹理中获取颜色
+ float2 gradientX = ddx( color.rgb );//计算RGB颜色在x方向的梯度
+ float2 gradientY = ddy( color.rgb );//计算RGB颜色在y方向的梯度
+
+ float edgeStrength = length( gradientX) + length(gradientY);//计算边缘强度
+
+ return float4( edgeStrength , edgeStrength , edgeStrength , 1.0 );//输出边缘强度作为灰度值
+
+*/
+
+// isnan() 检查当前float是不是一个无效值
+/*
+   float value = 0.0 / 0.0;//这是一个nan值
+   bool result = isnan(value);//结果为true
 */
