@@ -682,4 +682,11 @@ float4 vec2 = float4( 5.0 , 6.0 , 7.0 , 8.0 );
    //计算3x3矩阵的行列式
    float det  = determinant(matrix3x3); //det == 0 , 表明矩阵不可逆
 
+   float2 v1 = float2(0,0);
+   float2 v2 = float2(1,0);
+   float2 v3 = float2(0,1);
+
+   float2x2 mat = float2x2( v2 - v1 , v3 - v1 );
+   float area = 0.5 * determinant(mat);//得到三角形
+
 */
