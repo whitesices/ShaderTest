@@ -436,4 +436,250 @@ return color;
 /*
    float value = 0.0 / 0.0;//这是一个nan值
    bool result = isnan(value);//结果为true
+
+
+   //示例检测向量是否有效
+   float3 vec =  float3(1.0 , 0.0 / 0.0 , 3.0 );//第二个分量是NaN
+   bool3 result = isnan(vec); // result 应是bool3( false , true , false )
+
+   //判断是否有效来进行颜色替换
+   float4 color = GetColor();
+   if( isnan(color.r) )
+   {
+      //如果颜色的红色通道是NaN ， 将其替换为零
+      color.r = 0.0;
+   }
+*/
+
+// float value = 0.0 / 1.0;
+// bool result = isnan(value);
+// return result;
+
+//isfinite() 有限
+// float value1 = 1.0;//有限数
+// float value2 = 1.0 / 0.0;//是无穷大，不是有限数
+// float value3 = 0.0 / 0.0;//NaN,不是有限数
+
+// bool result1 = isfinite(value1);//result 是 true
+// bool result2 = isfinite(value2);//result 是false
+// bool result3 = isfinite(value3);//result 是 false
+// bool3 result = bool3( result1 , result2 , result3 );
+// return result;
+/*
+//判断向量是否有效
+float3 vec1 = float3(1.0 ,2.0 , 3.0 );//全部是有限数
+float3 vec2 = float3(1.0 , 0.0/0.0 , 3.0 );//含NaN
+
+bool3 result1 = isfinite(vec1); //result1 是 bool3( true , true , true )
+bool3 result2 = isfinite(vec2); //result2 是 bool3( true , false , true);
+
+/*
+//应用示例:
+ //获取一个位置判断位置是不是一个有限数
+ float4 position = GetPosition();
+ if( !isfinite( position.x ) || !isfinite(position.y) || !isfinite(position.z) )
+ {
+   //如果位置的任意一个分量不是有限数，执行错误处理或者跳过渲染
+   //即将像素丢弃掉
+   Discard();
+ }
+
+*/
+
+//幂函数 exp() 等同于 e^10 即自然对数的十次方
+// exp2(10) 等同于 2^10 即2的十次方
+/*
+//示例
+   float3 vec3 = float3( 1.0 , 2.0 , 3.0 );
+   float3 exp_vec = exp(vec3)；//exp_vec 对应每个分量分别计算 e的次幂
+   float3 exp_vec2 = exp2(vec3); //exp_vec 对应每个分量分别计算2的次幂
+*/
+
+// float3 vec3 = float3( 1.0 , 2.0 , 3.0 );
+// float3 exp_vec = exp(vec3);
+// float3 exp_vec2 = exp2(vec3);
+
+// return exp_vec2;
+
+// isinf() 判断一个值是不是无穷大
+/*
+//计算示例
+ float value_1 = 1.0;//不是无穷大
+ float value_2 = 1.0 / 0.0 ;//是正无穷大
+ float value_3 = -1.0 / 0.0;//是负无穷大
+
+ bool result1 = isinf(value_1);//result1 是false
+ bool result2 = isinf(value_2);//result2 是true
+ bool result3 = isinf(value_3);//result3 是true
+
+;log  log2 log10 即对数  在高数中常用
+//计算示例 
+float result = log( 10.0 );//result 等于 ln(10) , 即 2.30258
+float3 vec = float3( 1.0 , 2.0 , 3.0 );
+float3 log_vec = log(vec);//log_vec 对应每个分量分别计算自然对数
+
+*/
+
+//max min 最大 最小
+// float a1 = max(3,7);
+// float a2 = min(3,7);
+// float3 vec3 = float3( a1 , a2 , 1.f );
+// return vec3;
+
+//modf() , 将给定的float值拆成整数部分和小数部分
+//示例
+// float gg = 1.75f;
+// float3 ggR = float3(0.f , 0.f , 0.f );
+// ggR.y =  modf(gg , ggR.x);//ggR.x获取的是gg整数部分 ggR.y获取的是gg的小数部分
+// return ggR;
+/*演算示例
+float3 vec = float3( 2.5 , 4.2 , 1.8 );
+float3 ip_vec;
+float3 frac_vec = modf( vec , ip_vec ); //frac_vec 对应每个分量的小数部分 ， ip_vec 对应每个分量的整数部分
+*/
+
+//normalize() ,向量里面用的多 归一化
+//示例
+// float3 vec3 = float3( 10.f , 1.f , 100.f );
+// float3 vec31 = normalize(vec3);
+// return vec31;
+
+// rcp 实质是将传过的值变为它本身的倒数 即变为分母 如 传入2 输出 2分之1
+//示例
+// float val_v = 2.0;
+// float reciprocal = rcp(val_v);// reciprocal 应等于 1.0/2.0 ;
+// return reciprocal;
+// float3 vec = float3( 2.0 , 4.0 , 8.0 );
+// float3 reciprocal_vec = rcp(vec); //结果是float3（ 0.5 ， 0.25 ，0.125 ） 
+
+// sqrt()  平方根数学意义上的平方根  rsqrt() 平方根的倒数 即根号分之一
+
+//round() 进行四舍五入
+//round(2.7f) result is 3.0 , round(2.1f)  result is 2.0
+
+//reflect() 反射  即已知入射光线求反射光线
+/*
+//示例
+   float3 incident = float3( 1.0 , -1.0 , 0.0 );//入射向量
+   float3 normal = float3( 0.0 , 1.0 , 0.0 );//法线向量
+   //求反射向量
+   float3 reflected = reflect( incident , normal );//计算反射向量 ， 结果是 float3( 1.0 ,1.0 ,1.0 );
+*/
+// float3 incident = float3( 1.0 , -1.0 , 0.0 );//入射向量
+// float3 normal = float3( 0.0 , 1.0 , 0.0 );//法线向量
+// //求反射向量
+// float3 reflected = reflect( incident , normal );//计算反射向量 ， 结果是 float3( 1.0 ,1.0 ,0.0 );
+// return reflected;
+
+// float3 lightDir = float3( -0.5 , -1.0 , -0.2 );//光线方向
+// float3 surfaceNormal = float3( 0.0 , 1.0 , 0.0 );//表面法线
+// float3 reflectedLight = reflect( lightDir , surfaceNormal );//计算反射光的方向
+
+// refract 折射
+//示例
+/*
+   float3 incident = float3(1.0 , -1.0 , 0.0 ); //入射向量
+   float3 normal = float3( 0.0 , 1.0 , 0.0 );  //法线向量
+   float eta = 1.0 / 1.5 ; //空气到玻璃的相对折射率
+   float3 refracted = refract( incident , normal , eta );//计算折射向量
+
+*/
+
+// reversebits
+//示例 
+/*
+uint val = 13;//输入的整数为13
+uint reversedVal = reversebits(val); //反转位后的结果是 2684354560
+应用场景在 图形计算中的纹理映射 、 加速数据处理或特殊编码的场景
+*/
+// saturate() 与 clamp() 功能上差不多  主要作用是返回零到一之间的数 大于一则只能输出一 小于零则只能输出零即将输出的值限制在0~1之间
+
+// float value = 0.3 ;
+// float saturateVal = saturate(value);
+// return saturateVal;
+
+//smoothstep() , 返回一个平滑的过渡值
+// float edge0 = 0.3;
+// float edge1 = 0.7;
+// float factor = 0.1;//因子
+// float smoothValue = smoothstep( edge0 , edge1 , factor );//返回一个平滑的过渡值
+// return smoothValue;
+// return smoothstep( color1 , color2 , Time);
+
+// sign() 若sign(-45) 返回结果位-1  分段函数 即 大于零返回1  ，等于零便等于零 ， 小于零便返回-1
+// return sign(0.5);//可以用于判断方向
+
+//sincos() 快速计算相应的角度，传入的值位弧度
+// float3 Valuesc;
+// sincos( 0.f , Valuesc.x , Valuesc.y); //x 为sin , y为cos
+
+// sinh() 计算输入x 的双曲正弦值 
+// float x = 0.5;
+// float sinhValue = sinh(x); //计算输入x的双曲正弦值
+//mad() 乘加函数 即 A 和 B相乘 再和C相加
+/* 实验示例
+float aa = 100;
+float bb = 200;
+float cc = 10;
+mad( aa , bb , cc );
+*/
+//lit() -> 精简的一种光照算法 涉及散射光 ， 镜面光 ， 环境光 一般用于Fong模型
+/*
+//示例
+float NdotL = saturate( dot( normal , lightDir ) );
+float NdotH = saturate( dot( normal, halfVector) );//模拟反射
+float m = 16.0;//镜面高光强度
+float4 lighting = lit(NdotL , NdotH , m );
+
+//示例
+float NdotL  = saturate( dot(normal , lightDir) );//法线和光照方向的点积
+float NdotH  = saturate( dot(normal , halfVector));//法线和半程向量的点积
+float shininess = 32.0;
+float4 lightResult = lit( NdotL , NdotH , shininess );
+*/
+/*
+//示例 
+//定义光照方向 和 视线方向
+float3 lightDir = normalize( lightPosition - surfacePosition );
+float3 viewDir = normalize( cameraPosition - surfacePosition );
+
+//计算半程向量
+float3 halfVector = normalize( lightDir + ViewDir );
+//计算法线与半程向量的点积
+float NdotH = saturate( dot(normal) );
+
+//用于lit 函数计算镜面反射强度
+float shininess = 32.0;
+float4 lighting = lit( NdotL , NdotH , shininess );
+
+
+
+*/
+
+//mul() 矩阵乘法
+/*
+float4 vec1 = float4( 1.0 , 2.0 , 3.0 , 4.0 );
+float4 vec2 = float4( 5.0 , 6.0 , 7.0 , 8.0 );
+*/
+//对应分量相乘
+// float4 result = mul( vec1 , vec2 );
+
+
+//示例
+//float4x4 modelMatrix = ...;//模型矩阵
+//float4x4 viewMatrix = ...;//视图矩阵
+//float4x4 projectionMatrix = ...;//投影矩阵
+//将模型矩阵、视图矩阵和投影矩阵相乘 ， 获得完整的模型视图投影矩阵
+// float4x4 modelViewProjMatrix = mul( projectionMatrix , mul( viewMatrix , modelMatrix ) );
+
+//矩阵里面的行列式
+//determinant
+//示例
+/* 
+   float3x3 matrix3x3 = float3x3(1,2,3,
+                                 4,5,6,
+                                 7,8,9);
+   //计算3x3矩阵的行列式
+   float det  = determinant(matrix3x3); //det == 0 , 表明矩阵不可逆
+
 */
