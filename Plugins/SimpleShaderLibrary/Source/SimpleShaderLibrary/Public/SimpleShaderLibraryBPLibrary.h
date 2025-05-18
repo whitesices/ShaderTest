@@ -3,6 +3,8 @@
 #pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+//引入依赖类型头文件
+#include "SimpleShaderLibraryType.h"
 #include "SimpleShaderLibraryBPLibrary.generated.h"
 
 /* 
@@ -29,4 +31,12 @@ class USimpleShaderLibraryBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "SimpleShaderLibrary sample test testing"), Category = "SimpleShaderLibraryTesting")
 	static float SimpleShaderLibrarySampleFunction(float Param);
+
+	//将渲染暴露给蓝图使用
+	UFUNCTION( BlueprintCallable , Category = "SimpleShaderLibraryTesting")
+	static void startRender();
+
+	//更新渲染参数
+	UFUNCTION(BlueprintCallable , Category = "SimpleShaderLibraryTesting")
+	static void UpdateShaderParam( const FTestShaderParameters& InParam );
 };

@@ -1,0 +1,33 @@
+float3 V = PWorld - CView;//PWorld顶点 CView视口 计算视口位置
+//新增光照方向
+float3 lightDirection = normalize( lightPos );//做归一化
+//此处这里去判断是否去进行绘制
+//置换改变原点
+float displace = ( sin( V.x * sin(time) / 3 ) +
+                   sin( V.y * sin(time) / 3 ) +
+                   sin( V.z * sin(time) / 3 ) );
+
+float D = distance( V , displace ) - R;//View 到 对象点位的距离 减去半径得到距离
+
+if( D < 1 )
+{
+    //计算法线
+    float3 normal = normalize( V - displace );
+    //通过光照方向与法线计算漫反射
+    float diffuse = max( dot( normal , lightDirection ) , 0.01 );
+    /*求高光*/
+    //视点反转
+    float3 v1 = normalize(-V);
+    //求反射光线
+    float3 reflection = reflect( lightDirection , normal );
+    //求镜面光
+    float specular = pow( max( dot( reflection , v1 ) , 0.f ) , 64.f );//多少次平方加锐化
+
+    //返回遮罩为1
+    LightMask = 1.f;
+    return diffuse + specular ;
+}
+
+LightMask = 0.f;
+//返回遮罩为0
+return 0;

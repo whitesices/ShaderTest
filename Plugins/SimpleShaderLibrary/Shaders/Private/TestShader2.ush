@@ -1,0 +1,23 @@
+//在UE的shader中要使用函数需要把它套在结构体中
+struct FHelloTest
+{
+    float3 Test()
+    {
+        return float3( HelloCC() , 0.f , 0.f);
+    }
+};
+
+
+//实例化结构体
+FHelloTest test;
+
+
+// return 0;
+//使用dx12的Texture2DSample()进行纹理采样 传入UE材质编辑器传入的texture（必须为textureobject） 然后选用textureSampler方式 ，再传入外部uv
+//float4 ResultColor = Texture2DSample( Texture , TextureSampler , uv);//若Texture变为 Texture123 则 后续的采样器为Texture123Sampler  即传入Texture的名字 + Sampler
+//立方体纹理采样
+float4 ResultColor = TextureCubeSample( Texture , TextureSampler, uv);
+
+
+
+return test.Test();

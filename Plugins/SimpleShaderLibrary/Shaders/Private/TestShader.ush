@@ -673,7 +673,7 @@ float4 vec2 = float4( 5.0 , 6.0 , 7.0 , 8.0 );
 // float4x4 modelViewProjMatrix = mul( projectionMatrix , mul( viewMatrix , modelMatrix ) );
 
 //矩阵里面的行列式
-//determinant
+//determinant 表明矩阵可逆不可逆，做行列式计算
 //示例
 /* 
    float3x3 matrix3x3 = float3x3(1,2,3,
@@ -690,3 +690,108 @@ float4 vec2 = float4( 5.0 , 6.0 , 7.0 , 8.0 );
    float area = 0.5 * determinant(mat);//得到三角形
 
 */
+
+//transpose() 转置
+//code 示例
+/*
+//原有的矩阵
+float3x3 matrix3x3 = float3x3(1,2,3,
+                              4,5,6,
+                              7,8,9);
+
+//计算矩阵的转置
+float3x3 transposeMatrix = transpose( matrix3x3 );
+
+//result is :
+//transposeMatrix = float3X3(1,4,7,
+                             2,5,8,
+                             3,6,9);
+
+
+*/
+
+//tan() 正切值
+/*
+//code示例
+float angle = 0.785398;//约等于45度，弧度制
+float tanValue = tan(angle); //tan(45度) = 1.0
+
+float2 angleVec2 = float2(0.785398, 1.5708);//45度和90度的弧度值
+float2 tanVec2 = tan(angleVec2);//返回float2( 1.0 , 无穷大)
+
+//还用在求摄像机的投影矩阵上
+
+float fov = 1.0 ;
+float aspectRatio = 16.0 / 9.0;//宽高比
+float zNear = 0.1;
+float zFar = 100.0; 
+
+
+//通过FOV计算投影矩阵
+float f = 1.0 / tan( fov / 2.0 );
+float4x4 projectionMatrix = float4x4( f/aspectRatio , 0.0 , 0.0 , 0.0 ,
+                                       0.0 , f , 0.0 , 0.0 ,
+                                       0.0 , 0.0 , (zFar + ZNear) / (ZNear - ZFar) , -1.0,
+                                       0.0 , 0.0 , (2.0 * zFar * zNear) / (zNear - zFar) ,0.0);
+
+                                    
+//用在计算视野宽度
+float fov = 1.0 ;//约等于57.3度
+float distance = 5.0;//距离
+
+float halfViewWidth = tan( fov / 2.0 ) * distance ;
+float viewWidth = 2.0 * halfViewWidth;
+*/
+
+//radians() 用于将角度转为弧度
+/*
+//代码示例
+radians(90.f);//
+*/
+
+//pow() 多少次方 如 pow( 2,3 ) 2的3次方
+
+// tanh 双曲正切
+/*代码示例
+float value = 0.5;
+float result = tanh(value);//结果大约为0.462
+
+float2 valueVec2 = float2( 0.5 , 1.0 );
+float2 resultVec2 = tanh( valueVec2 );//返回float2( 0.462 , 0.762 );
+
+///进行归一化
+float inputSignal = 2.0 ;
+float normalizedSignal = tanh( inputSignal ); //归一化到[-1,1],结果均为0.964
+
+float4 inputVec = float4( 2.0 , -1.0 , 0.5 , 3.0 );
+float4 normalizedVec = tanh(inputVec);//对每个元素进行归一化
+
+*/
+
+// atan() 反正切 求出它的角度
+/*
+float ratio = 1.0;
+float myangle = atan(ratio);//结果为0.785398(约等于π/4 , 即45°)
+
+*/
+
+// float opposite = 1.0;//对边长度
+// float adjacent = 1.0;//邻边长度
+// float angle = atan( opposite / adjacent ); //计算角度，结果为45°
+
+// atan2() -> 计算当前一个点到另一个点的角度
+/*
+//代码 示例
+float x = 1.0;
+float y = 1.0;
+
+float angle = atan2( y , x ); //结果为0.785398(约等于 π/4 ,即45°)
+
+//计算玩家的朝向
+float2 playerPos = float2( 0.0 , 0.0 );//玩家的位置
+float2 targetPos = float2( 1.0 , 1.0 );//目标的位置
+float angle = atan2( targetPos.y - playerPos.y , tragetPos.x - playerPos.x );//计算朝向角度
+
+*/
+
+return 0；
